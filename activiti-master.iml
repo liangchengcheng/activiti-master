@@ -20,5 +20,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.0.36" level="application_server_libraries" />
+    <orderEntry type="library" name="activiti-bpmn-converter-5.16" level="project" />
   </component>
 </module>
