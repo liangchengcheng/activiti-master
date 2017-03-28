@@ -143,7 +143,7 @@ public class BaseServiceImpl<T> implements IBaseService<T> {
         StringBuffer sb = new StringBuffer();
         sb.append("select a from ").append(tableSimpleName).append( " a where ");
 
-        if(columns.length==values.length){
+        if(columns.length == values.length){
             for(int i = 0; i < columns.length; i++){
                 sb.append("a.").append(columns[i]).append("='").append(values[i]).append("'");
                 if(i < columns.length-1){
