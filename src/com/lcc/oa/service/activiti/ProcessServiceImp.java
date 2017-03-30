@@ -136,7 +136,8 @@ public class ProcessServiceImp implements IProcessService {
      */
     @Override
     public List<BaseVO> findFinishedTaskInstances(User user, Model model) throws Exception {
-        HistoricTaskInstanceQuery historQuery = historyService.createHistoricTaskInstanceQuery().taskAssignee(user.getId().toString()).finished();
+        HistoricTaskInstanceQuery historQuery = historyService.createHistoricTaskInstanceQuery()
+                .taskAssignee(user.getId().toString()).finished();
         Integer totalSum = historQuery.list().size();
         int[] pageParams = PaginationThreadUtils.setPage(totalSum);
         Pagination pagination = PaginationThreadUtils.get();
@@ -145,7 +146,9 @@ public class ProcessServiceImp implements IProcessService {
 
         for(HistoricTaskInstance historicTaskInstance : list){
             String processInstanceId = historicTaskInstance.getProcessInstanceId();
-            List<HistoricVariableInstance> listVar = this.historyService.createHistoricVariableInstanceQuery().processInstanceId(processInstanceId).list();
+            List<HistoricVariableInstance> listVar = this.historyService
+                    .createHistoricVariableInstanceQuery()
+                    .processInstanceId(processInstanceId).list();
             for(HistoricVariableInstance var : listVar){
                 if("serializable".equals(var.getVariableTypeName()) && "entity".equals(var.getVariableName())){
                     BaseVO base = (BaseVO) var.getValue();
@@ -167,7 +170,8 @@ public class ProcessServiceImp implements IProcessService {
         List<BaseVO> taskList = new ArrayList<BaseVO>();
         for (Task task : tasks) {
             String processInstanceId = task.getProcessInstanceId();
-            ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).active().singleResult();
+            ProcessInstance processInstance = this.runtimeService.createProcessInstanceQuery()
+                    .processInstanceId(processInstanceId).active().singleResult();
             if(BeanUtils.isBlank(processInstance)){
                 //如果有挂起的流程则continue
                 continue;
@@ -188,7 +192,8 @@ public class ProcessServiceImp implements IProcessService {
      * @param processDefinitionId 流程定义ID
      */
     protected ProcessDefinition getProcessDefinition(String processDefinitionId) {
-        ProcessDefinition processDefinition = this.repositoryService.createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
+        ProcessDefinition processDefinition = this.repositoryService
+                .createProcessDefinitionQuery().processDefinitionId(processDefinitionId).singleResult();
         logger.info(processDefinition.getVersion());
         return processDefinition;
     }
@@ -229,7 +234,8 @@ public class ProcessServiceImp implements IProcessService {
      */
     @Override
     public InputStream getDiagram(String processInstanceId){
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(processInstanceId).singleResult();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
         List<String> activeActivityIds = runtimeService.getActiveActivityIds(processInstanceId);
         // 不使用spring请使用下面的两行代码
@@ -252,8 +258,10 @@ public class ProcessServiceImp implements IProcessService {
     @Override
     public InputStream getDiagramByProInstanceId_noTrace(String resourceType, String processInstanceId){
 
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(processInstanceId).singleResult();
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery().processDefinitionId(processInstance.getProcessDefinitionId())
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(processInstanceId).singleResult();
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                .processDefinitionId(processInstance.getProcessDefinitionId())
                 .singleResult();
 
         String resourceName = "";
@@ -472,14 +480,12 @@ public class ProcessServiceImp implements IProcessService {
     }
 
     @Override
-    public void activateProcessInstance(String processInstanceId)
-            throws Exception {
+    public void activateProcessInstance(String processInstanceId) throws Exception {
         runtimeService.activateProcessInstanceById(processInstanceId);
     }
 
     @Override
-    public void suspendProcessInstance(String processInstanceId)
-            throws Exception {
+    public void suspendProcessInstance(String processInstanceId) throws Exception {
         runtimeService.suspendProcessInstanceById(processInstanceId);
     }
 

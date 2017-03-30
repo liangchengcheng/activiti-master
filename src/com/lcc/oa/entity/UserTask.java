@@ -15,10 +15,8 @@ import javax.persistence.Table;
 @Table(name = "T_USER_TASK")
 public class UserTask implements Serializable {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 8889804050417208965L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID", unique = true)

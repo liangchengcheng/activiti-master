@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
-
 import com.lcc.oa.util.WorkflowUtils;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.repository.Deployment;
@@ -105,10 +104,9 @@ public class WorkflowDeployService {
                 //目的是过滤重复部署（如果资源没有发生变化则不会重复部署）
                 builder.enableDuplicateFiltering();
                 Deployment deployment = builder.deploy();
-
-//	            Deployment deployment = repositoryService.createDeployment().addZipInputStream(zis).deploy(); //此方法会重复部署，不管资源变没变化
-
-                // export diagram
+                //Deployment deployment = repositoryService.createDeployment().addZipInputStream(zis).deploy();
+                //此方法会重复部署，不管资源变没变化
+                //export diagram
                 List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().deploymentId(deployment.getId()).list();
                 for (ProcessDefinition processDefinition : list) {
                     WorkflowUtils.exportDiagramToFile(repositoryService, processDefinition, exportDir);
