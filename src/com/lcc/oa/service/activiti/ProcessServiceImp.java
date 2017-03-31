@@ -393,17 +393,19 @@ public class ProcessServiceImp implements IProcessService {
         Salary sa = this.salaryService.findByUserId(salary.getUserId().toString());
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("entity", salary);
-        //此处已经加入监听来动态分配任务--UserTaskLintener
-        //variables.put("auditGroup", "director");		//总监组审批
+        // 此处已经加入监听来动态分配任务--UserTaskLintener
+        // 总监组审批
+        // variables.put("auditGroup", "director");
         variables.put("businessKey", salary.getId());
-        variables.put("baseMoney", sa.getBaseMoney());  //原有薪金(回滚用)
+        // 原有薪金(回滚用)
+        variables.put("baseMoney", sa.getBaseMoney());
         String businessKey = salary.getBusinessKey();
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("com.zml.oa.salary", businessKey, variables);
         String processInstanceId = processInstance.getId();
         salary.setProcessInstanceId(processInstanceId);
         this.saService.doUpdate(salary);
         logger.info("processInstanceId: "+processInstanceId);
-        //最后要设置null，就是这么做，还没研究为什么
+        // 最后要设置null，就是这么做，还没研究为什么
         this.identityService.setAuthenticatedUserId(null);
         return processInstanceId;
     }
@@ -415,11 +417,11 @@ public class ProcessServiceImp implements IProcessService {
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("entity", vacation);
         //由userTask自动分配审批权限
-//        if(vacation.getDays() <= 3){
-//        	variables.put("auditGroup", "manager");
-//        }else{
-//        	variables.put("auditGroup", "director");
-//        }
+        //if(vacation.getDays() <= 3){
+        //	variables.put("auditGroup", "manager");
+        //}else{
+        //	variables.put("auditGroup", "director");
+        //}
         String businessKey = vacation.getBusinessKey();
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("com.zml.oa.vacation", businessKey, variables);
         String processInstanceId = processInstance.getId();
@@ -488,6 +490,5 @@ public class ProcessServiceImp implements IProcessService {
     public void suspendProcessInstance(String processInstanceId) throws Exception {
         runtimeService.suspendProcessInstanceById(processInstanceId);
     }
-
 
 }

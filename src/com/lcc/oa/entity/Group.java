@@ -34,12 +34,12 @@ public class Group implements Serializable{
     @Column(name = "TYPE")
     private String type;
 
-    //bi-directional many-to-many association to User
-//    @ManyToMany(mappedBy = "group")
-//    private List<User> user;
+    // bi-directional many-to-many association to User
+    // @ManyToMany(mappedBy = "group")
+    // private List<User> user;
     @OneToMany(targetEntity=User.class,cascade=CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
-    //updatable=false很关键，如果没有它，在级联删除的时候就会报错(反转的问题)
+    // updatable=false很关键，如果没有它，在级联删除的时候就会报错(反转的问题)
     @JoinColumn(name="GROUP_ID",updatable=false)
     private Set<User> user = new HashSet<User>();
 
