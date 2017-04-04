@@ -25,12 +25,15 @@ public class Pagination {
     public String getOrderStr() {
         return orderStr;
     }
+
     public void setOrderStr(String orderStr) {
         this.orderStr = orderStr;
     }
+
     public String getOrderColumn() {
         return orderColumn;
     }
+
     public void setOrderColumn(String orderColumn) {
         this.orderColumn = orderColumn;
     }
@@ -38,18 +41,23 @@ public class Pagination {
     public Integer getFirstResult() {
         return firstResult;
     }
+
     public void setFirstResult(Integer firstResult) {
         this.firstResult = firstResult;
     }
+
     public Integer getMaxResult() {
         return maxResult;
     }
+
     public void setMaxResult(Integer maxResult) {
         this.maxResult = maxResult;
     }
+
     public Integer getPageNumDefault() {
         return pageNumDefault;
     }
+
     public void setPageNumDefault(Integer pageNumDefault) {
         this.pageNumDefault = pageNumDefault;
     }
@@ -57,12 +65,13 @@ public class Pagination {
     public String getPreName() {
         return preName;
     }
+
     public void setPreName(String preName) {
         this.preName = preName;
     }
 
     public Integer getPageNum() {
-        if(this.pageNum == null) {
+        if (this.pageNum == null) {
             this.pageNum = this.getPageNumDefault();
         }
         pageNum = pageNum < 1 || pageNum > 1000 ? 10 : pageNum;
@@ -72,9 +81,11 @@ public class Pagination {
     public void setPageNum(Integer pageNum) {
         this.pageNum = pageNum;
     }
+
     public String getPageStr() {
         return pageStr;
     }
+
     public void setPageStr(String pageStr) {
         this.pageStr = pageStr;
     }
@@ -82,36 +93,45 @@ public class Pagination {
     public Integer getCurrentPage() {
         return currentPage;
     }
+
     public void setCurrentPage(Integer currentPage) {
         this.currentPage = currentPage;
     }
+
     public Integer getTotalPage() {
         return totalPage;
     }
+
     public void setTotalPage(Integer totalPage) {
         this.totalPage = totalPage;
     }
+
     public Integer getPrePage() {
         return prePage;
     }
+
     public void setPrePage(Integer prePage) {
         this.prePage = prePage;
     }
+
     public Integer getNextPage() {
         return nextPage;
     }
+
     public void setNextPage(Integer nextPage) {
         this.nextPage = nextPage;
     }
+
     public Integer getTotalSum() {
         return totalSum;
     }
+
     public void setTotalSum(Integer totalSum) {
         this.totalSum = totalSum;
     }
+
     //处理分页
-    public void processTotalPage()
-    {
+    public void processTotalPage() {
         this.setTotalPage(new Integer((this.getTotalSum() / this.getPageNum()) + (this.getTotalSum() % this.getPageNum() != 0 ? 1 : 0)));
         this.setPrePage(this.getCurrentPage() - 1 > 1 ? this.getCurrentPage() - 1 : 1);
         this.setNextPage(this.getCurrentPage() + 1 < this.getTotalPage() ? this.getCurrentPage() + 1 : this.getTotalPage());
@@ -127,10 +147,10 @@ public class Pagination {
 
         str.append("<td align=\"left\" valign=\"center\" class=\"bt\" width=\"30%\">共" + this.getTotalPage() + "页&nbsp;");
         str.append("第" + this.getCurrentPage() + "页&nbsp;");
-        str.append("每页<input id=\"pageNum\" name=\"" + this.preName + "pageNum\" type=\"text\" class=\"bt\" value=\""  + this.getPageNum() + "\" onChange=\"doSearch(1);\"  maxlength=\"3\" size=\"2\">条记录</td>");
+        str.append("每页<input id=\"pageNum\" name=\"" + this.preName + "pageNum\" type=\"text\" class=\"bt\" value=\"" + this.getPageNum() + "\" onChange=\"doSearch(1);\"  maxlength=\"3\" size=\"2\">条记录</td>");
         str.append("<td align=\"right\" valign=\"center\" class=\"bt\" width=\"70%\">");
 
-        if(this.getTotalPage().longValue() > 1) {
+        if (this.getTotalPage().longValue() > 1) {
             str.append("<a href=\"javascript:doSearch(1);\" class=\"bt\" onClick=\"\">首页</a>&nbsp;&nbsp;");
             str.append("<a href=\"javascript:doSearch(" + this.getPrePage() + ");\" class=\"bt\" onClick=\"\" style=\"cursor:hand\">上一页</a>&nbsp;&nbsp;");
             str.append("<a href=\"javascript:doSearch(" + this.getNextPage() + ");\" class=\"bt\" onClick=\"\" style=\"cursor:hand\">下一页</a>&nbsp;");
