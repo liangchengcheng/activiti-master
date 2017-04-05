@@ -14,9 +14,6 @@ import org.activiti.engine.task.Task;
 
 public class BaseVO implements Serializable{
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 6165121688276341503L;
 
     // 业务类型
@@ -44,7 +41,6 @@ public class BaseVO implements Serializable{
     public static final String APPROVAL_SUCCESS = "APPROVAL_SUCCESS";
     //审批失败
     public static final String APPROVAL_FAILED = "APPROVAL_FAILED";
-
 
     // 申请人id
     private Integer user_id;
